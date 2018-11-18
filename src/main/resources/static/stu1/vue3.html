@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>vue3.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <script src="../vue.js"></script>
+
+  </head>
+  
+  <body>
+    This is my HTML page. <br>
+    
+    <div id="app1" 	v-bind:class="classObject">
+    	ABCDEF
+    </div>
+    <div id="app2" v-bind:style="classStyle">
+    	ABBBBBBBB
+    </div>
+    <div id="app3">
+    	<template v-if="type==='name'">
+	    	<p>name1</p>
+	    	<input placeholder="insert your name">
+    	</template>
+    	<template v-else>
+	    	<p>email1</p>
+	    	<input placeholder="insert your email">
+	    	<input placeholder="password">
+    	</template>
+    	<button @click="change">change</button>
+    	<br>
+    	<h1 v-show="isshow">Hello!</h1>
+    </div>
+    
+    
+    <div id="app4">
+    	<li v-for="item in items">
+    		{{ item.text }}
+    	</li>
+    	<br>
+    	<li v-for="value in list">
+    		{{ value }}
+    	</li>
+    	<br>
+    	<li v-for="value in qnumbers">
+    		{{ value }}
+    	</li>
+    	<br>
+    	<li v-for="value in qstrings">
+    		{{ value }}
+    	</li>
+    </div>
+    <br>
+    <div id="app5">
+    	<input v-model="nextTodoText" v-on:keyup.enter="addTodo" placeholder="add a new todo">
+    	<ul>
+    		<li is="delete-item"
+    		v-bind:key="todo.id"
+    		v-bind:title="todo.title"
+    		v-for="(todo, index) in todos"
+    		v-on:remove="todos.splice(index,1)">
+    			{{ todo.id }}--{{ todo.title }}
+    		</li>
+    	</ul>
+    </div>
+    
+    
+    <script>
+    	var app1 = new Vue({
+    		el: '#app1',
+    		data: {
+    			isActive: true,
+    			error: null
+    		},
+    		computed: {
+    			classObject: function(){
+    				return {
+    					active: this.isActive && !this.error ,
+    					'text-danger': this.error && this.error.type === 'fatal'
+    					
+    				}
+    			}
+    		}
+    	})
+    	
+    	var app2 = new Vue({
+    		el: '#app2',
+    		data: {
+    			classStyle: {
+    				color: 'red',
+    				fontSize: '12px'
+    			}
+    		}
+    	})
+    	
+    	var app3 = new Vue({
+    		el: '#app3',
+    		data: {
+    			type: 'name',
+    			
+    		},
+    		computed: {
+    			isshow : function(){
+    				return  this.type==='name'?true:false
+    				
+    			}
+    		},
+    		methods: {
+    			change: function(){
+    				this.type = this.type==='name'?'email':'name'
+    			}
+    		}
+    	})
+    	
+    	var app4 = new Vue({
+    		el: '#app4',
+    		data: {
+    			items: [
+    				{text: 'abc',id: 'first'},
+    				{text: '123',id: 'second'}
+    			],
+    			list:{
+    				fname: 'Tom',
+    				sname: 'Cat',
+    				ffname: 'Tomcat'
+    			},
+    			numbers: [4,5,6,7,8,9],
+    			strings: ['abc','bcde','cde']
+    		},
+    		computed: {
+    			qnumbers: function(){
+    				return this.numbers.filter(function(one){
+    						return one % 2 === 0
+    				})
+    			},
+    			qstrings: function(){
+    				return this.strings.filter(function(one){
+    						return one.indexOf('de')>=0
+    				})
+    			}
+    		}
+    	})
+    	
+    	Vue.component('delete-item',{
+    		template: '\
+			    <li>\
+			      {{ title }}\<button v-on:click="$emit(\'remove\')">删除</button>\
+			    </li>\
+			  ',
+			props: ['title']
+    	})
+    	var app5 = new Vue({
+    		el: '#app5',
+    		data: {
+    			nextTodoText: '',
+    			todos: [
+    				{id: 1,title: 'the first thing'},
+    				{id: 2,title: 'the first thing'},
+    				{id: 3,title: 'the first thing'}
+    			],
+    			nextTodoId: 4
+    		},
+    		methods: {
+    			addTodo: function(){
+    				this.todos.push({
+    					id: this.nextTodoId ++,
+    					title: this.nextTodoText
+    				})
+    				this.nextTodoText = ''
+    			}
+    		}
+    	})
+    </script>
+  </body>
+</html>

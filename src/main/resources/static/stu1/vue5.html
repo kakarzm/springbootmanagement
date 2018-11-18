@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>vue5.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <script src="../vue.js"></script>
+
+  </head>
+  
+  <body>
+    This is my HTML page. <br>
+    
+    
+    <div id="app1">
+    	<button v-on:click="warn('Form cannot be submitted yet.', $event)">
+		  Submit
+		</button>
+    </div>
+    
+    <div id="app2">
+    	<input v-model.lazy="text">
+    	<input v-model.number="text">
+    	<input v-model.trim="text">
+    	{{ text }}
+    </div>
+    <br>
+    <div id="app3">
+    	<div @click.self="divclick"  style="display:inline-block; width: 333px; background-color:red;">
+    		<button @click.once="btnclick">点击产生日志</button>
+    	</div>
+    </div>
+    
+	<script>
+		var app1 = new Vue({
+			el: '#app1',
+			data: {
+				count : 0
+			},
+			methods: {
+				warn: function(event){
+					if(event)
+						event.preventDefault()
+					alert(event.target.tagName) 
+				}
+			}
+		})
+		
+		var app2 = new Vue({
+			el: '#app2',
+			data: {
+				text: ''
+			}	
+		})
+		
+		var app3 = new Vue({
+			el: '#app3',
+			methods: {
+				divclick: function(){
+					console.log('divclick.............')
+				},
+				btnclick: function(){
+					console.log('btnclick.............')
+				}
+			}
+		})
+	</script>
+  </body>
+</html>

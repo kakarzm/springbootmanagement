@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>vue6.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <script src="../vue.js"></script>
+    
+
+  </head>
+  
+  <body>
+    组件:
+    <br>
+    
+    <div id="app1">
+	    <table>
+	    	<tr is="my-component"></tr>
+	    </table>
+    </div>
+    <br>
+    <div id="app2">
+    	<simple-counter></simple-counter>
+		<simple-counter></simple-counter>
+		<simple-counter></simple-counter>
+    </div>
+    <br>
+    <div id="app3">
+    	<input v-model="todo.message">
+    	<input v-model="todo.backmsg">
+    	<br>
+    	<mess v-bind="todo" ></mess>
+    </div>
+    <br>
+    <div id="app4">
+    	<p>{{ totle }}</p>
+    	<br>
+    	<child-btn v-on:parentadd="addTotle"></child-btn>
+    	<child-btn v-on:parentadd="addTotle"></child-btn>
+    	<child-btn v-on:parentadd="addTotle"></child-btn>
+    </div>
+    
+    
+    <script>
+    	Vue.component('my-component', {
+		  template: '<span>{{ message }}</span>',
+		  data: function (){
+		  	return {
+			    message: 'hello'
+			  }
+		  }
+		})
+		
+		var data = { counter: 0 }
+
+		Vue.component('simple-counter', {
+		  template: '<button v-on:click="counter += 1">{{ counter }}</button>',
+		  // 技术上 data 的确是一个函数了，因此 Vue 不会警告，
+		  // 但是我们却给每个组件实例返回了同一个对象的引用
+		  data: function () {
+		    return {
+			    counter: 0
+			  }
+		  }
+		})
+		 
+		Vue.component('mess',{
+			props: ['message','backmsg'],
+			template: '<span>{{ message }}--{{backmsg}}</span>'
+			
+		})
+		
+    	var child = {
+    		template: '<tr><td>abc</td></tr>'
+    	}
+    	
+    	var app1 = new Vue({
+    		el: '#app1',
+    		components: {
+    			'my-component': child
+    		}
+    	})
+    	var app2 = new Vue({
+    		el: '#app2'
+    		
+    	})
+    	
+    	var app3 = new Vue({
+    		el: '#app3',
+    		data: {
+    			test: 'abc',
+    			back: '123',
+    			todo: {
+    				message: '123',
+					backmsg: 'Tom'
+    			}
+    		}
+    	})
+    	
+    	Vue.component('child-btn',{
+    		
+    		template: '<button v-on:click="childadd">{{childcount}}</button>',
+    		data: function(){
+    			return {childcount: 0}
+    		},
+    		methods: {
+    			childadd: function(){
+    				this.childcount ++
+    				this.$emit('parentadd')
+    			}
+    		}
+    	})
+    	var app4 = new Vue({
+    		el: '#app4',
+    		data: {
+    			totle: 0
+    		},
+    		methods:{
+    			addTotle: function(){
+    				this.totle ++ 
+    			}
+    		}
+    	})
+    </script>
+  </body>
+</html>

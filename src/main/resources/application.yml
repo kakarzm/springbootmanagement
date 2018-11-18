@@ -1,0 +1,55 @@
+#datasource
+spring:
+    datasource:
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://127.0.0.1:3306/vhr_relforknowledge?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC
+        username: root
+        password: root
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        initialSize: 5
+        minIdle: 5
+        maxActive: 20
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: SELECT 1 FROM DUAL
+        testWhileIdle: true 
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        filters: stat,wall,log4j
+        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+        useGlobalDataSourceStat: true
+    session: 
+        store-type: redis
+    redis: 
+        database: 1
+        host: 127.0.0.1
+        port: 6379    
+    thymeleaf: 
+        cache: false
+    data:
+        neo4j:
+            url: bolt://localhost:7687
+            username: neo4j
+            password: 123123
+    application:
+        name: service-rfk
+mybatis: 
+    mapper-locations: classpath:/mybatis/mapper/*.xml
+    type-aliases-package: qg.fangrui.boot.model
+
+logging.level.com.lm.dao: DEBUG
+
+server:
+    port: 8083
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8091/eureka/
+  instance:
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+
