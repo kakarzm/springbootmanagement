@@ -14,6 +14,6 @@ public class SessionInvalidController {
 
     @RequestMapping("/invalid")
     public RespBean sessionInvalid(){
-        return new RespBean("error","session过期,请重新登陆") ;
+        return new RespBean("error","session过期,请重新登陆.") ;
     }
 }
