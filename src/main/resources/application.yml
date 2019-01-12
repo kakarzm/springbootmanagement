@@ -44,6 +44,8 @@ logging.level.com.lm.dao: DEBUG
 
 server:
     port: 8083
+    servlet:
+      timeout: 10s
 
 eureka:
   client:

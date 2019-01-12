@@ -53,13 +53,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/index.html", "/static/**")
-				.antMatchers( "/hi/**");
+				.antMatchers( "/hi/**")
+                .antMatchers("/session/invalid");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers( "/hi/**").permitAll()
                 .anyRequest().authenticated()
                 .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
                     @Override
@@ -107,6 +107,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		        })
 		        .and()
 		        .logout().permitAll()
+				.and().sessionManagement().invalidSessionUrl("/session/invalid")
 		        .and()
 		        .csrf().disable()
 		        .exceptionHandling()
