@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lm.dao.BasicMapper">
+
+    <resultMap id="BaseResultMap" type="com.lm.model.plan.basic.Basic">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="school" property="school" jdbcType="VARCHAR"/>
+        <result column="major" property="major" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="createtime" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.lm.model.plan.basic.Basic">
+        insert into plan_basic values(#{id}, #{title}, #{school}, #{major}, 'normal', NOW())
+    </insert>
+
+    <select id="getList" parameterType="String" resultType="map">
+        SELECT id,title,school,major,status,DATE_FORMAT(createtime,'%Y-%m-%d %H:%i:%s') createtime
+        FROM plan_basic
+        where status = 'normal'
+        <if test= "title != null and '' != title ">
+            and title like CONCAT('%',#{title},'%')
+        </if>
+        order by createtime desc
+    </select>
+
+    <delete id="del" parameterType="String">
+        DELETE FROM plan_basic WHERE id = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.lm.model.plan.basic.Basic">
+        update plan_basic
+        set title=#{title},school=#{school},major=#{major},status=#{status},
+        WHERE id = #{id}
+    </update>
+
+    <select id="getDetail" resultType="com.lm.model.plan.basic.Basic" parameterType="String">
+        SELECT tz.guid,tz.bt,tz.tznr,DATE_FORMAT(tz.cjsj,'%Y-%m-%d %H:%i:%s') cjsj,yh.xm
+        FROM t_tzgg_mx tz
+        LEFT JOIN t_org_yh yh ON yh.yhid=tz.yhid
+        WHERE 1=1
+        and tz.guid = #{id}
+    </select>
+
+</mapper>
