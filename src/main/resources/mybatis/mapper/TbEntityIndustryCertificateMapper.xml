@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lm.dao.TbEntityIndustryCertificateMapper" >
+  <resultMap id="BaseResultMap" type="com.lm.model.plan.basic.TbEntityIndustryCertificate" >
+    <id column="industry_certificate_id" property="industryCertificateId" jdbcType="INTEGER" />
+    <result column="industry_certificate_name" property="industryCertificateName" jdbcType="VARCHAR" />
+    <result column="industry_certificate_course" property="industryCertificateCourse" jdbcType="VARCHAR" />
+    <result column="industry_certificate_sign" property="industryCertificateSign" jdbcType="VARCHAR" />
+    <result column="industry_certificate_dept" property="industryCertificateDept" jdbcType="INTEGER" />
+    <result column="industry_certificate_profession" property="industryCertificateProfession" jdbcType="INTEGER" />
+    <result column="industry_certificate_authentication_type" property="industryCertificateAuthenticationType" jdbcType="INTEGER" />
+    <result column="industry_certificate_module" property="industryCertificateModule" jdbcType="VARCHAR" />
+    <result column="industry_certificate_identification_site" property="industryCertificateIdentificationSite" jdbcType="INTEGER" />
+    <result column="industry_certificate_organization" property="industryCertificateOrganization" jdbcType="INTEGER" />
+    <result column="industry_certificate_url" property="industryCertificateUrl" jdbcType="VARCHAR" />
+    <result column="industry_certificate_status" property="industryCertificateStatus" jdbcType="INTEGER" />
+    <result column="industry_certificate_created" property="industryCertificateCreated" jdbcType="TIMESTAMP" />
+    <result column="industry_certificate_updated" property="industryCertificateUpdated" jdbcType="TIMESTAMP" />
+    <result column="industry_certificate_backup1" property="industryCertificateBackup1" jdbcType="VARCHAR" />
+    <result column="industry_certificate_backup2" property="industryCertificateBackup2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    industry_certificate_id, industry_certificate_name, industry_certificate_course, 
+    industry_certificate_sign, industry_certificate_dept, industry_certificate_profession, 
+    industry_certificate_authentication_type, industry_certificate_module, industry_certificate_identification_site, 
+    industry_certificate_organization, industry_certificate_url, industry_certificate_status, 
+    industry_certificate_created, industry_certificate_updated, industry_certificate_backup1, 
+    industry_certificate_backup2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lm.model.plan.basic.TbEntityIndustryCertificateExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_entity_industry_certificate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_entity_industry_certificate
+    where industry_certificate_id = #{industryCertificateId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_entity_industry_certificate
+    where industry_certificate_id = #{industryCertificateId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lm.model.plan.basic.TbEntityIndustryCertificateExample" >
+    delete from tb_entity_industry_certificate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lm.model.plan.basic.TbEntityIndustryCertificate" >
+    insert into tb_entity_industry_certificate (industry_certificate_id, industry_certificate_name, 
+      industry_certificate_course, industry_certificate_sign, 
+      industry_certificate_dept, industry_certificate_profession, 
+      industry_certificate_authentication_type, industry_certificate_module, 
+      industry_certificate_identification_site, industry_certificate_organization, 
+      industry_certificate_url, industry_certificate_status, 
+      industry_certificate_created, industry_certificate_updated, 
+      industry_certificate_backup1, industry_certificate_backup2
+      )
+    values (#{industryCertificateId,jdbcType=INTEGER}, #{industryCertificateName,jdbcType=VARCHAR}, 
+      #{industryCertificateCourse,jdbcType=VARCHAR}, #{industryCertificateSign,jdbcType=VARCHAR}, 
+      #{industryCertificateDept,jdbcType=INTEGER}, #{industryCertificateProfession,jdbcType=INTEGER}, 
+      #{industryCertificateAuthenticationType,jdbcType=INTEGER}, #{industryCertificateModule,jdbcType=VARCHAR}, 
+      #{industryCertificateIdentificationSite,jdbcType=INTEGER}, #{industryCertificateOrganization,jdbcType=INTEGER}, 
+      #{industryCertificateUrl,jdbcType=VARCHAR}, #{industryCertificateStatus,jdbcType=INTEGER}, 
+      #{industryCertificateCreated,jdbcType=TIMESTAMP}, #{industryCertificateUpdated,jdbcType=TIMESTAMP}, 
+      #{industryCertificateBackup1,jdbcType=VARCHAR}, #{industryCertificateBackup2,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lm.model.plan.basic.TbEntityIndustryCertificate" >
+    insert into tb_entity_industry_certificate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="industryCertificateId != null" >
+        industry_certificate_id,
+      </if>
+      <if test="industryCertificateName != null" >
+        industry_certificate_name,
+      </if>
+      <if test="industryCertificateCourse != null" >
+        industry_certificate_course,
+      </if>
+      <if test="industryCertificateSign != null" >
+        industry_certificate_sign,
+      </if>
+      <if test="industryCertificateDept != null" >
+        industry_certificate_dept,
+      </if>
+      <if test="industryCertificateProfession != null" >
+        industry_certificate_profession,
+      </if>
+      <if test="industryCertificateAuthenticationType != null" >
+        industry_certificate_authentication_type,
+      </if>
+      <if test="industryCertificateModule != null" >
+        industry_certificate_module,
+      </if>
+      <if test="industryCertificateIdentificationSite != null" >
+        industry_certificate_identification_site,
+      </if>
+      <if test="industryCertificateOrganization != null" >
+        industry_certificate_organization,
+      </if>
+      <if test="industryCertificateUrl != null" >
+        industry_certificate_url,
+      </if>
+      <if test="industryCertificateStatus != null" >
+        industry_certificate_status,
+      </if>
+      <if test="industryCertificateCreated != null" >
+        industry_certificate_created,
+      </if>
+      <if test="industryCertificateUpdated != null" >
+        industry_certificate_updated,
+      </if>
+      <if test="industryCertificateBackup1 != null" >
+        industry_certificate_backup1,
+      </if>
+      <if test="industryCertificateBackup2 != null" >
+        industry_certificate_backup2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="industryCertificateId != null" >
+        #{industryCertificateId,jdbcType=INTEGER},
+      </if>
+      <if test="industryCertificateName != null" >
+        #{industryCertificateName,jdbcType=VARCHAR},
+      </if>
+      <if test="industryCertificateCourse != null" >
+        #{industryCertificateCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="industryCertificateSign != null" >
+        #{industryCertificateSign,jdbcType=VARCHAR},
+      </if>
+      <if test="industryCertificateDept != null" >
+        #{industryCertificateDept,jdbcType=INTEGER},
+      </if>
+      <if test="industryCertificateProfession != null" >
+        #{industryCertificateProfession,jdbcType=INTEGER},
+      </if>
+      <if test="industryCertificateAuthenticationType != null" >
+        #{industryCertificateAuthenticationType,jdbcType=INTEGER},
+      </if>
+      <if test="industryCertificateModule != null" >
+        #{industryCertificateModule,jdbcType=VARCHAR},
+      </if>
+      <if test="industryCertificateIdentificationSite != null" >
+        #{industryCertificateIdentificationSite,jdbcType=INTEGER},
+      </if>
+      <if test="industryCertificateOrganization != null" >
+        #{industryCertificateOrganization,jdbcType=INTEGER},
+      </if>
+      <if test="industryCertificateUrl != null" >
+        #{industryCertificateUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="industryCertificateStatus != null" >
+        #{industryCertificateStatus,jdbcType=INTEGER},
+      </if>
+      <if test="industryCertificateCreated != null" >
+        #{industryCertificateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="industryCertificateUpdated != null" >
+        #{industryCertificateUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="industryCertificateBackup1 != null" >
+        #{industryCertificateBackup1,jdbcType=VARCHAR},
+      </if>
+      <if test="industryCertificateBackup2 != null" >
+        #{industryCertificateBackup2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lm.model.plan.basic.TbEntityIndustryCertificateExample" resultType="java.lang.Integer" >
+    select count(*) from tb_entity_industry_certificate
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_entity_industry_certificate
+    <set >
+      <if test="record.industryCertificateId != null" >
+        industry_certificate_id = #{record.industryCertificateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.industryCertificateName != null" >
+        industry_certificate_name = #{record.industryCertificateName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industryCertificateCourse != null" >
+        industry_certificate_course = #{record.industryCertificateCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industryCertificateSign != null" >
+        industry_certificate_sign = #{record.industryCertificateSign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industryCertificateDept != null" >
+        industry_certificate_dept = #{record.industryCertificateDept,jdbcType=INTEGER},
+      </if>
+      <if test="record.industryCertificateProfession != null" >
+        industry_certificate_profession = #{record.industryCertificateProfession,jdbcType=INTEGER},
+      </if>
+      <if test="record.industryCertificateAuthenticationType != null" >
+        industry_certificate_authentication_type = #{record.industryCertificateAuthenticationType,jdbcType=INTEGER},
+      </if>
+      <if test="record.industryCertificateModule != null" >
+        industry_certificate_module = #{record.industryCertificateModule,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industryCertificateIdentificationSite != null" >
+        industry_certificate_identification_site = #{record.industryCertificateIdentificationSite,jdbcType=INTEGER},
+      </if>
+      <if test="record.industryCertificateOrganization != null" >
+        industry_certificate_organization = #{record.industryCertificateOrganization,jdbcType=INTEGER},
+      </if>
+      <if test="record.industryCertificateUrl != null" >
+        industry_certificate_url = #{record.industryCertificateUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industryCertificateStatus != null" >
+        industry_certificate_status = #{record.industryCertificateStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.industryCertificateCreated != null" >
+        industry_certificate_created = #{record.industryCertificateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.industryCertificateUpdated != null" >
+        industry_certificate_updated = #{record.industryCertificateUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.industryCertificateBackup1 != null" >
+        industry_certificate_backup1 = #{record.industryCertificateBackup1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industryCertificateBackup2 != null" >
+        industry_certificate_backup2 = #{record.industryCertificateBackup2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_entity_industry_certificate
+    set industry_certificate_id = #{record.industryCertificateId,jdbcType=INTEGER},
+      industry_certificate_name = #{record.industryCertificateName,jdbcType=VARCHAR},
+      industry_certificate_course = #{record.industryCertificateCourse,jdbcType=VARCHAR},
+      industry_certificate_sign = #{record.industryCertificateSign,jdbcType=VARCHAR},
+      industry_certificate_dept = #{record.industryCertificateDept,jdbcType=INTEGER},
+      industry_certificate_profession = #{record.industryCertificateProfession,jdbcType=INTEGER},
+      industry_certificate_authentication_type = #{record.industryCertificateAuthenticationType,jdbcType=INTEGER},
+      industry_certificate_module = #{record.industryCertificateModule,jdbcType=VARCHAR},
+      industry_certificate_identification_site = #{record.industryCertificateIdentificationSite,jdbcType=INTEGER},
+      industry_certificate_organization = #{record.industryCertificateOrganization,jdbcType=INTEGER},
+      industry_certificate_url = #{record.industryCertificateUrl,jdbcType=VARCHAR},
+      industry_certificate_status = #{record.industryCertificateStatus,jdbcType=INTEGER},
+      industry_certificate_created = #{record.industryCertificateCreated,jdbcType=TIMESTAMP},
+      industry_certificate_updated = #{record.industryCertificateUpdated,jdbcType=TIMESTAMP},
+      industry_certificate_backup1 = #{record.industryCertificateBackup1,jdbcType=VARCHAR},
+      industry_certificate_backup2 = #{record.industryCertificateBackup2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lm.model.plan.basic.TbEntityIndustryCertificate" >
+    update tb_entity_industry_certificate
+    <set >
+      <if test="industryCertificateName != null" >
+        industry_certificate_name = #{industryCertificateName,jdbcType=VARCHAR},
+      </if>
+      <if test="industryCertificateCourse != null" >
+        industry_certificate_course = #{industryCertificateCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="industryCertificateSign != null" >
+        industry_certificate_sign = #{industryCertificateSign,jdbcType=VARCHAR},
+      </if>
+      <if test="industryCertificateDept != null" >
+        industry_certificate_dept = #{industryCertificateDept,jdbcType=INTEGER},
+      </if>
+      <if test="industryCertificateProfession != null" >
+        industry_certificate_profession = #{industryCertificateProfession,jdbcType=INTEGER},
+      </if>
+      <if test="industryCertificateAuthenticationType != null" >
+        industry_certificate_authentication_type = #{industryCertificateAuthenticationType,jdbcType=INTEGER},
+      </if>
+      <if test="industryCertificateModule != null" >
+        industry_certificate_module = #{industryCertificateModule,jdbcType=VARCHAR},
+      </if>
+      <if test="industryCertificateIdentificationSite != null" >
+        industry_certificate_identification_site = #{industryCertificateIdentificationSite,jdbcType=INTEGER},
+      </if>
+      <if test="industryCertificateOrganization != null" >
+        industry_certificate_organization = #{industryCertificateOrganization,jdbcType=INTEGER},
+      </if>
+      <if test="industryCertificateUrl != null" >
+        industry_certificate_url = #{industryCertificateUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="industryCertificateStatus != null" >
+        industry_certificate_status = #{industryCertificateStatus,jdbcType=INTEGER},
+      </if>
+      <if test="industryCertificateCreated != null" >
+        industry_certificate_created = #{industryCertificateCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="industryCertificateUpdated != null" >
+        industry_certificate_updated = #{industryCertificateUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="industryCertificateBackup1 != null" >
+        industry_certificate_backup1 = #{industryCertificateBackup1,jdbcType=VARCHAR},
+      </if>
+      <if test="industryCertificateBackup2 != null" >
+        industry_certificate_backup2 = #{industryCertificateBackup2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where industry_certificate_id = #{industryCertificateId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lm.model.plan.basic.TbEntityIndustryCertificate" >
+    update tb_entity_industry_certificate
+    set industry_certificate_name = #{industryCertificateName,jdbcType=VARCHAR},
+      industry_certificate_course = #{industryCertificateCourse,jdbcType=VARCHAR},
+      industry_certificate_sign = #{industryCertificateSign,jdbcType=VARCHAR},
+      industry_certificate_dept = #{industryCertificateDept,jdbcType=INTEGER},
+      industry_certificate_profession = #{industryCertificateProfession,jdbcType=INTEGER},
+      industry_certificate_authentication_type = #{industryCertificateAuthenticationType,jdbcType=INTEGER},
+      industry_certificate_module = #{industryCertificateModule,jdbcType=VARCHAR},
+      industry_certificate_identification_site = #{industryCertificateIdentificationSite,jdbcType=INTEGER},
+      industry_certificate_organization = #{industryCertificateOrganization,jdbcType=INTEGER},
+      industry_certificate_url = #{industryCertificateUrl,jdbcType=VARCHAR},
+      industry_certificate_status = #{industryCertificateStatus,jdbcType=INTEGER},
+      industry_certificate_created = #{industryCertificateCreated,jdbcType=TIMESTAMP},
+      industry_certificate_updated = #{industryCertificateUpdated,jdbcType=TIMESTAMP},
+      industry_certificate_backup1 = #{industryCertificateBackup1,jdbcType=VARCHAR},
+      industry_certificate_backup2 = #{industryCertificateBackup2,jdbcType=VARCHAR}
+    where industry_certificate_id = #{industryCertificateId,jdbcType=INTEGER}
+  </update>
+</mapper>

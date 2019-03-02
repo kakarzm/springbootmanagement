@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lm.dao.TbEntityCompanyNeedMapper" >
+  <resultMap id="BaseResultMap" type="com.lm.model.plan.basic.TbEntityCompanyNeed" >
+    <id column="company_need_id" property="companyNeedId" jdbcType="INTEGER" />
+    <result column="company_need_job_name" property="companyNeedJobName" jdbcType="VARCHAR" />
+    <result column="company_need_description" property="companyNeedDescription" jdbcType="VARCHAR" />
+    <result column="company_need_type" property="companyNeedType" jdbcType="INTEGER" />
+    <result column="company_need_profession" property="companyNeedProfession" jdbcType="VARCHAR" />
+    <result column="company_need_name" property="companyNeedName" jdbcType="VARCHAR" />
+    <result column="company_need_introduction" property="companyNeedIntroduction" jdbcType="VARCHAR" />
+    <result column="company_need_requirement" property="companyNeedRequirement" jdbcType="VARCHAR" />
+    <result column="company_need_created" property="companyNeedCreated" jdbcType="TIMESTAMP" />
+    <result column="company_need_updated" property="companyNeedUpdated" jdbcType="TIMESTAMP" />
+    <result column="company_need_status" property="companyNeedStatus" jdbcType="INTEGER" />
+    <result column="company_need_backup1" property="companyNeedBackup1" jdbcType="VARCHAR" />
+    <result column="company_need_backup2" property="companyNeedBackup2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    company_need_id, company_need_job_name, company_need_description, company_need_type, 
+    company_need_profession, company_need_name, company_need_introduction, company_need_requirement, 
+    company_need_created, company_need_updated, company_need_status, company_need_backup1, 
+    company_need_backup2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lm.model.plan.basic.TbEntityCompanyNeedExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_entity_company_need
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_entity_company_need
+    where company_need_id = #{companyNeedId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_entity_company_need
+    where company_need_id = #{companyNeedId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lm.model.plan.basic.TbEntityCompanyNeedExample" >
+    delete from tb_entity_company_need
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lm.model.plan.basic.TbEntityCompanyNeed" >
+    insert into tb_entity_company_need (company_need_id, company_need_job_name, 
+      company_need_description, company_need_type, 
+      company_need_profession, company_need_name, 
+      company_need_introduction, company_need_requirement, 
+      company_need_created, company_need_updated, 
+      company_need_status, company_need_backup1, 
+      company_need_backup2)
+    values (#{companyNeedId,jdbcType=INTEGER}, #{companyNeedJobName,jdbcType=VARCHAR}, 
+      #{companyNeedDescription,jdbcType=VARCHAR}, #{companyNeedType,jdbcType=INTEGER}, 
+      #{companyNeedProfession,jdbcType=VARCHAR}, #{companyNeedName,jdbcType=VARCHAR}, 
+      #{companyNeedIntroduction,jdbcType=VARCHAR}, #{companyNeedRequirement,jdbcType=VARCHAR}, 
+      #{companyNeedCreated,jdbcType=TIMESTAMP}, #{companyNeedUpdated,jdbcType=TIMESTAMP}, 
+      #{companyNeedStatus,jdbcType=INTEGER}, #{companyNeedBackup1,jdbcType=VARCHAR}, 
+      #{companyNeedBackup2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lm.model.plan.basic.TbEntityCompanyNeed" >
+    insert into tb_entity_company_need
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="companyNeedId != null" >
+        company_need_id,
+      </if>
+      <if test="companyNeedJobName != null" >
+        company_need_job_name,
+      </if>
+      <if test="companyNeedDescription != null" >
+        company_need_description,
+      </if>
+      <if test="companyNeedType != null" >
+        company_need_type,
+      </if>
+      <if test="companyNeedProfession != null" >
+        company_need_profession,
+      </if>
+      <if test="companyNeedName != null" >
+        company_need_name,
+      </if>
+      <if test="companyNeedIntroduction != null" >
+        company_need_introduction,
+      </if>
+      <if test="companyNeedRequirement != null" >
+        company_need_requirement,
+      </if>
+      <if test="companyNeedCreated != null" >
+        company_need_created,
+      </if>
+      <if test="companyNeedUpdated != null" >
+        company_need_updated,
+      </if>
+      <if test="companyNeedStatus != null" >
+        company_need_status,
+      </if>
+      <if test="companyNeedBackup1 != null" >
+        company_need_backup1,
+      </if>
+      <if test="companyNeedBackup2 != null" >
+        company_need_backup2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="companyNeedId != null" >
+        #{companyNeedId,jdbcType=INTEGER},
+      </if>
+      <if test="companyNeedJobName != null" >
+        #{companyNeedJobName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNeedDescription != null" >
+        #{companyNeedDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNeedType != null" >
+        #{companyNeedType,jdbcType=INTEGER},
+      </if>
+      <if test="companyNeedProfession != null" >
+        #{companyNeedProfession,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNeedName != null" >
+        #{companyNeedName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNeedIntroduction != null" >
+        #{companyNeedIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNeedRequirement != null" >
+        #{companyNeedRequirement,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNeedCreated != null" >
+        #{companyNeedCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyNeedUpdated != null" >
+        #{companyNeedUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyNeedStatus != null" >
+        #{companyNeedStatus,jdbcType=INTEGER},
+      </if>
+      <if test="companyNeedBackup1 != null" >
+        #{companyNeedBackup1,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNeedBackup2 != null" >
+        #{companyNeedBackup2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lm.model.plan.basic.TbEntityCompanyNeedExample" resultType="java.lang.Integer" >
+    select count(*) from tb_entity_company_need
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_entity_company_need
+    <set >
+      <if test="record.companyNeedId != null" >
+        company_need_id = #{record.companyNeedId,jdbcType=INTEGER},
+      </if>
+      <if test="record.companyNeedJobName != null" >
+        company_need_job_name = #{record.companyNeedJobName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyNeedDescription != null" >
+        company_need_description = #{record.companyNeedDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyNeedType != null" >
+        company_need_type = #{record.companyNeedType,jdbcType=INTEGER},
+      </if>
+      <if test="record.companyNeedProfession != null" >
+        company_need_profession = #{record.companyNeedProfession,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyNeedName != null" >
+        company_need_name = #{record.companyNeedName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyNeedIntroduction != null" >
+        company_need_introduction = #{record.companyNeedIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyNeedRequirement != null" >
+        company_need_requirement = #{record.companyNeedRequirement,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyNeedCreated != null" >
+        company_need_created = #{record.companyNeedCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.companyNeedUpdated != null" >
+        company_need_updated = #{record.companyNeedUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.companyNeedStatus != null" >
+        company_need_status = #{record.companyNeedStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.companyNeedBackup1 != null" >
+        company_need_backup1 = #{record.companyNeedBackup1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyNeedBackup2 != null" >
+        company_need_backup2 = #{record.companyNeedBackup2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_entity_company_need
+    set company_need_id = #{record.companyNeedId,jdbcType=INTEGER},
+      company_need_job_name = #{record.companyNeedJobName,jdbcType=VARCHAR},
+      company_need_description = #{record.companyNeedDescription,jdbcType=VARCHAR},
+      company_need_type = #{record.companyNeedType,jdbcType=INTEGER},
+      company_need_profession = #{record.companyNeedProfession,jdbcType=VARCHAR},
+      company_need_name = #{record.companyNeedName,jdbcType=VARCHAR},
+      company_need_introduction = #{record.companyNeedIntroduction,jdbcType=VARCHAR},
+      company_need_requirement = #{record.companyNeedRequirement,jdbcType=VARCHAR},
+      company_need_created = #{record.companyNeedCreated,jdbcType=TIMESTAMP},
+      company_need_updated = #{record.companyNeedUpdated,jdbcType=TIMESTAMP},
+      company_need_status = #{record.companyNeedStatus,jdbcType=INTEGER},
+      company_need_backup1 = #{record.companyNeedBackup1,jdbcType=VARCHAR},
+      company_need_backup2 = #{record.companyNeedBackup2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lm.model.plan.basic.TbEntityCompanyNeed" >
+    update tb_entity_company_need
+    <set >
+      <if test="companyNeedJobName != null" >
+        company_need_job_name = #{companyNeedJobName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNeedDescription != null" >
+        company_need_description = #{companyNeedDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNeedType != null" >
+        company_need_type = #{companyNeedType,jdbcType=INTEGER},
+      </if>
+      <if test="companyNeedProfession != null" >
+        company_need_profession = #{companyNeedProfession,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNeedName != null" >
+        company_need_name = #{companyNeedName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNeedIntroduction != null" >
+        company_need_introduction = #{companyNeedIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNeedRequirement != null" >
+        company_need_requirement = #{companyNeedRequirement,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNeedCreated != null" >
+        company_need_created = #{companyNeedCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyNeedUpdated != null" >
+        company_need_updated = #{companyNeedUpdated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyNeedStatus != null" >
+        company_need_status = #{companyNeedStatus,jdbcType=INTEGER},
+      </if>
+      <if test="companyNeedBackup1 != null" >
+        company_need_backup1 = #{companyNeedBackup1,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNeedBackup2 != null" >
+        company_need_backup2 = #{companyNeedBackup2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where company_need_id = #{companyNeedId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lm.model.plan.basic.TbEntityCompanyNeed" >
+    update tb_entity_company_need
+    set company_need_job_name = #{companyNeedJobName,jdbcType=VARCHAR},
+      company_need_description = #{companyNeedDescription,jdbcType=VARCHAR},
+      company_need_type = #{companyNeedType,jdbcType=INTEGER},
+      company_need_profession = #{companyNeedProfession,jdbcType=VARCHAR},
+      company_need_name = #{companyNeedName,jdbcType=VARCHAR},
+      company_need_introduction = #{companyNeedIntroduction,jdbcType=VARCHAR},
+      company_need_requirement = #{companyNeedRequirement,jdbcType=VARCHAR},
+      company_need_created = #{companyNeedCreated,jdbcType=TIMESTAMP},
+      company_need_updated = #{companyNeedUpdated,jdbcType=TIMESTAMP},
+      company_need_status = #{companyNeedStatus,jdbcType=INTEGER},
+      company_need_backup1 = #{companyNeedBackup1,jdbcType=VARCHAR},
+      company_need_backup2 = #{companyNeedBackup2,jdbcType=VARCHAR}
+    where company_need_id = #{companyNeedId,jdbcType=INTEGER}
+  </update>
+</mapper>
