@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lm.dao.BasicCollegeMapper">
+    <resultMap id="CollegeResultMap" type="com.lm.model.plan.basic.CollegeB">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="collegeType" property="collegeType" jdbcType="VARCHAR"/>
+        <result column="Address" property="Address" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="createtime" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.lm.model.plan.basic.CollegeB">
+        insert into college_information values(#{id}, #{title}, #{collegeType}, #{Address}, 'normal', NOW())
+    </insert>
+
+    <delete id="del" parameterType="String">
+         UPDATE college_information
+         set status=''
+         WHERE id = #{id}
+    </delete>
+
+    <select id="getList" parameterType="String" resultType="map">
+        SELECT id,title,collegeType,Address,status,DATE_FORMAT(createtime,'%Y-%m-%d %H:%i:%s') createtime
+        FROM college_information
+        where status = 'normal'
+        <if test= "title != null and '' != title ">
+            and title like CONCAT('%',#{title},'%')
+        </if>
+        order by createtime desc
+    </select>
+
+    <update id="update" parameterType="com.lm.model.plan.basic.CollegeB">
+        update college_information
+        set title=#{title},collegeType=#{collegeType},Address=#{Address}
+        WHERE id = #{id}
+    </update>
+
+    <select id="searchid" parameterType="String" resultMap="CollegeResultMap">
+         SELECT id,title,collegeType,Address,status,DATE_FORMAT(createtime,'%Y-%m-%d %H:%i:%s') createtime
+        FROM college_information
+        where id = #{id}
+    </select>
+</mapper>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lm.dao.BasicCourseMapper">
+    <resultMap id="CourseResultMap" type="com.lm.model.plan.basic.CourseB">
+        <id column="course_id" property="id" jdbcType="VARCHAR"/>
+        <result column="course_name" property="title" jdbcType="VARCHAR"/>
+        <result column="english_name" property="englishName" jdbcType="VARCHAR"/>
+        <result column="course_type_id" property="courseType" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="course_create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="course_code" property="courseCode" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.lm.model.plan.basic.CourseB">
+        insert into t_entity_course values(#{id}, #{title}, #{englishName}, #{courseCode}, #{courseType},'normal', NOW())
+    </insert>
+
+    <select id="getList" parameterType="String" resultType="map">
+        SELECT course_id,course_name,english_name,course_type_id,status,DATE_FORMAT(course_create_time,'%Y-%m-%d %H:%i:%s') course_create_time,course_code
+        FROM t_entity_course
+        where status = 'normal'
+        <if test= "title != null and '' != title ">
+            and course_name like CONCAT('%',#{title},'%')
+        </if>
+        order by course_create_time desc
+    </select>
+
+    <delete id="del" parameterType="String">
+        UPDATE t_entity_course
+        set status=''
+        WHERE course_id= #{id}
+    </delete>
+
+    <select id="searchid" parameterType="String" resultMap="CourseResultMap">
+        SELECT course_id,course_name,english_name,course_type_id,status,course_code
+        FROM t_entity_course
+        where course_id= #{id}
+    </select>
+
+    <update id="update" parameterType="com.lm.model.plan.basic.MajorBasic">
+        update t_entity_course
+        set course_name=#{title},english_name=#{englishName},course_type_id=#{courseType},course_code=#{courseCode}
+        WHERE course_id= #{id}
+    </update>
+</mapper>

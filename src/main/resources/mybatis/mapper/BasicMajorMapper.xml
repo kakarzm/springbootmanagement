@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lm.dao.BasicMajorMapper">
+    <resultMap id="MajorResultMap" type="com.lm.model.plan.basic.MajorBasic">
+        <id column="major_id" property="id" jdbcType="VARCHAR"/>
+        <result column="major_name" property="title" jdbcType="VARCHAR"/>
+        <result column="major_introduction" property="majorIntroduction" jdbcType="VARCHAR"/>
+        <result column="major_status" property="status" jdbcType="VARCHAR"/>
+        <result column="major_created_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="major_code" property="majorCode" jdbcType="VARCHAR"/>
+        <result column="major_url" property="majorUrl" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.lm.model.plan.basic.MajorBasic">
+        insert into tb_entity_major values(#{id}, #{title}, #{majorCode},NOW(),'normal',#{majorUrl},#{majorIntroduction})
+    </insert>
+
+    <select id="getList" parameterType="String" resultType="map">
+        SELECT major_id,major_name,major_introduction,DATE_FORMAT(major_created_time,'%Y-%m-%d %H:%i:%s') major_created_time,major_code,major_url
+        FROM tb_entity_major
+        where major_status = 'normal'
+        <if test= "title != null and '' != title ">
+            and major_name like CONCAT('%',#{title},'%')
+        </if>
+        order by major_created_time desc
+    </select>
+
+    <delete id="del" parameterType="String">
+        UPDATE tb_entity_major
+        set major_status=''
+        WHERE major_id= #{id}
+    </delete>
+
+    <select id="searchid" parameterType="String" resultMap="MajorResultMap">
+        SELECT major_id,major_name,major_url,major_introduction,major_status,major_code
+        FROM tb_entity_major
+        where major_id= #{id}
+    </select>
+
+    <update id="update" parameterType="com.lm.model.plan.basic.MajorBasic">
+        update tb_entity_major
+        set major_name=#{title},major_url=#{majorUrl},major_introduction=#{majorIntroduction},major_code=#{majorCode}
+        WHERE major_id= #{id}
+    </update>
+</mapper>
