@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lm.dao.TrainingProjectMapper">
+
+    <resultMap id="TrainingResultMap" type="com.lm.model.plan.basic.Training">
+        <id column="project_catalog_id" property="id" jdbcType="VARCHAR"/>
+        <result column="project_catalog_majorName" property="title" jdbcType="VARCHAR"/>
+        <result column="project_catalog_college" property="college" jdbcType="VARCHAR"/>
+        <result column="project_catalog_majorType" property="majorType" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="createtime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="project_catalog_majorCode" property="majorCode" jdbcType="VARCHAR"/>
+        <result column="project_catalog_mission" property="information" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.lm.model.plan.basic.Training">
+        insert into project_catalog values(#{id}, NOW(),'administrator',#{college},'normal',#{title},#{majorType},#{majorCode},#{information})
+    </insert>
+
+    <insert id="savecontent" parameterType="List">
+        insert into project_content values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.contentId},#{item.id},#{item.trainingRequired},NOW(),'管理员','normal','')
+        </foreach>
+    </insert>
+
+    <insert id="saveUpdate" parameterType="com.lm.model.plan.basic.Training">
+        insert into project_catalog values(#{id}, NOW(),'administrator',#{college},'normal',#{title},#{majorType},#{majorCode},#{information})
+    </insert>
+
+    <insert id="saveUpdateContent" parameterType="List">
+        insert into project_content values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.contentId},#{item.id},#{item.trainingRequired},NOW(),'管理员','normal','')
+        </foreach>
+    </insert>
+
+    <select id="getList" parameterType="String" resultType="map">
+        SELECT
+        project_catalog.project_catalog_id,
+        project_catalog.project_catalog_college,
+        project_catalog.project_catalog_majorName,
+        project_catalog.project_catalog_majorType,
+        project_catalog.status,
+        project_catalog.project_catalog_majorCode,
+        project_catalog.project_catalog_mission,
+        COUNT(
+        project_content.project_content_information
+        ) AS project_content_mission_count
+        FROM
+        project_catalog
+        LEFT JOIN project_content
+        ON project_catalog.project_catalog_id = project_content.project_catalog_id
+        WHERE project_catalog.status = 'normal'
+        GROUP BY project_catalog.project_catalog_id,
+        project_catalog.project_catalog_college,
+        project_catalog.project_catalog_majorName,
+        project_catalog.project_catalog_majorType,
+        project_catalog.status,
+        project_catalog.project_catalog_majorCode,
+        project_catalog.project_catalog_mission
+        <if test= "title != null and '' != title ">
+            and project_catalog_majorName like CONCAT('%',#{title},'%')
+        </if>
+        order by project_catalog.createtime desc
+    </select>
+
+
+    <delete id="del" parameterType="String">
+        UPDATE project_catalog
+        set status=''
+        WHERE project_catalog_id= #{id}
+    </delete>
+
+    <delete id="delCatalog" parameterType="String">
+         delete from project_catalog
+        where project_catalog_id =#{id}
+    </delete>
+    <delete id="delContent" parameterType="String">
+        delete from project_content
+        where project_catalog_id =#{id}
+    </delete>
+
+    <select id="searchid" parameterType="String" resultMap="TrainingResultMap">
+        SELECT project_catalog_id,project_catalog_college,project_catalog_majorName,
+        project_catalog_majorType,status,project_catalog_majorCode,project_catalog_mission
+        FROM project_catalog
+        where project_catalog_id= #{id}
+    </select>
+
+    <select id="searchContentId" parameterType="String" resultType="string">
+        SELECT project_content_information
+        FROM project_content
+        where project_catalog_id= #{id}
+        <!--<foreach collection="Training" item="item" index="index" separator=",">
+        #{item.trainingRequires}
+        </foreach>  !-->
+    </select>
+
+    <update id="update" parameterType="com.lm.model.plan.basic.Training">
+        update project_catalog
+        set project_catalog_majorName=#{title},project_catalog_college=#{college},project_catalog_majorCode=#{majorCode},project_catalog_majorType=#{majorType},project_catalog_mission=#{information}
+        WHERE project_catalog_id= #{id}
+    </update>
+
+    <update id="updateContent" parameterType="List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            update project_content
+            <set> project_content_information =#{item.trainingRequired}</set>
+            where project_content_id =#{item.id}
+        </foreach>
+    </update>
+
+</mapper>
