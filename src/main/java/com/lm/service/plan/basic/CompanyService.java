@@ -3,11 +3,8 @@ package com.lm.service.plan.basic;
 import com.alibaba.druid.util.StringUtils;
 import com.github.pagehelper.PageHelper;
 import com.lm.dao.TbEntityCompanyNeedMapper;
-import com.lm.dao.TbEntityProfessionMapper;
 import com.lm.model.plan.basic.TbEntityCompanyNeed;
 import com.lm.model.plan.basic.TbEntityCompanyNeedExample;
-import com.lm.model.TbEntityProfession;
-import com.lm.model.TbEntityProfessionExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,8 +18,8 @@ public class CompanyService {
 
     @Autowired
     private TbEntityCompanyNeedMapper companyNeedMapper;
-    @Autowired
-    private TbEntityProfessionMapper professionMapper;
+    // @Autowired
+    //private TbEntityProfessionMapper professionMapper;
 
     public int add(TbEntityCompanyNeed company) {
         company.setCompanyNeedCreated(new Date());
@@ -67,9 +64,10 @@ public class CompanyService {
         return (long)companyNeedMapper.countByExample(example);
     }
 
-    public List<TbEntityProfession> getProfessions() {
-        TbEntityProfessionExample example = new TbEntityProfessionExample();
-        example.createCriteria().andProfessionStatusEqualTo(1);
-        return professionMapper.selectByExample(example);
+    public List<String> getProfessions() {
+        //TbEntityProfessionExample example = new TbEntityProfessionExample();
+        //example.createCriteria().andProfessionStatusEqualTo(1);
+        //return professionMapper.selectByExample(example);
+        return null ;
     }
 }
