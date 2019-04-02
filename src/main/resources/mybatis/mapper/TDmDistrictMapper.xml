@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lm.dao.TDmDistrictMapper" >
+  <resultMap id="BaseResultMap" type="com.lm.model.TDmDistrict" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="cityName" property="cityname" jdbcType="VARCHAR" />
+    <result column="parentId" property="parentid" jdbcType="INTEGER" />
+    <result column="shortName" property="shortname" jdbcType="VARCHAR" />
+    <result column="depth" property="depth" jdbcType="INTEGER" />
+    <result column="cityCode" property="citycode" jdbcType="VARCHAR" />
+    <result column="zipCode" property="zipcode" jdbcType="VARCHAR" />
+    <result column="mergerName" property="mergername" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+    <result column="pinyin" property="pinyin" jdbcType="VARCHAR" />
+    <result column="isUse" property="isuse" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, cityName, parentId, shortName, depth, cityCode, zipCode, mergerName, longitude, 
+    latitude, pinyin, isUse
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lm.model.TDmDistrictExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_dm_district
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.lm.model.TDmDistrictExample" >
+    delete from t_dm_district
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lm.model.TDmDistrict" >
+    insert into t_dm_district (id, cityName, parentId, 
+      shortName, depth, cityCode, 
+      zipCode, mergerName, longitude, 
+      latitude, pinyin, isUse
+      )
+    values (#{id,jdbcType=INTEGER}, #{cityname,jdbcType=VARCHAR}, #{parentid,jdbcType=INTEGER}, 
+      #{shortname,jdbcType=VARCHAR}, #{depth,jdbcType=INTEGER}, #{citycode,jdbcType=VARCHAR}, 
+      #{zipcode,jdbcType=VARCHAR}, #{mergername,jdbcType=VARCHAR}, #{longitude,jdbcType=VARCHAR}, 
+      #{latitude,jdbcType=VARCHAR}, #{pinyin,jdbcType=VARCHAR}, #{isuse,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lm.model.TDmDistrict" >
+    insert into t_dm_district
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="cityname != null" >
+        cityName,
+      </if>
+      <if test="parentid != null" >
+        parentId,
+      </if>
+      <if test="shortname != null" >
+        shortName,
+      </if>
+      <if test="depth != null" >
+        depth,
+      </if>
+      <if test="citycode != null" >
+        cityCode,
+      </if>
+      <if test="zipcode != null" >
+        zipCode,
+      </if>
+      <if test="mergername != null" >
+        mergerName,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="pinyin != null" >
+        pinyin,
+      </if>
+      <if test="isuse != null" >
+        isUse,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cityname != null" >
+        #{cityname,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="shortname != null" >
+        #{shortname,jdbcType=VARCHAR},
+      </if>
+      <if test="depth != null" >
+        #{depth,jdbcType=INTEGER},
+      </if>
+      <if test="citycode != null" >
+        #{citycode,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null" >
+        #{zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="mergername != null" >
+        #{mergername,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="pinyin != null" >
+        #{pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="isuse != null" >
+        #{isuse,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lm.model.TDmDistrictExample" resultType="java.lang.Integer" >
+    select count(*) from t_dm_district
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_dm_district
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.cityname != null" >
+        cityName = #{record.cityname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentid != null" >
+        parentId = #{record.parentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.shortname != null" >
+        shortName = #{record.shortname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.depth != null" >
+        depth = #{record.depth,jdbcType=INTEGER},
+      </if>
+      <if test="record.citycode != null" >
+        cityCode = #{record.citycode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zipcode != null" >
+        zipCode = #{record.zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mergername != null" >
+        mergerName = #{record.mergername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.longitude != null" >
+        longitude = #{record.longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.latitude != null" >
+        latitude = #{record.latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pinyin != null" >
+        pinyin = #{record.pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isuse != null" >
+        isUse = #{record.isuse,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_dm_district
+    set id = #{record.id,jdbcType=INTEGER},
+      cityName = #{record.cityname,jdbcType=VARCHAR},
+      parentId = #{record.parentid,jdbcType=INTEGER},
+      shortName = #{record.shortname,jdbcType=VARCHAR},
+      depth = #{record.depth,jdbcType=INTEGER},
+      cityCode = #{record.citycode,jdbcType=VARCHAR},
+      zipCode = #{record.zipcode,jdbcType=VARCHAR},
+      mergerName = #{record.mergername,jdbcType=VARCHAR},
+      longitude = #{record.longitude,jdbcType=VARCHAR},
+      latitude = #{record.latitude,jdbcType=VARCHAR},
+      pinyin = #{record.pinyin,jdbcType=VARCHAR},
+      isUse = #{record.isuse,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List" />
+    from t_dm_district
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+</mapper>

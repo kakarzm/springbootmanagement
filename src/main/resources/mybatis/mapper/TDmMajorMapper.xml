@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lm.dao.TDmMajorMapper" >
+  <resultMap id="BaseResultMap" type="com.lm.model.TDmMajor" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="majorcode" property="majorcode" jdbcType="VARCHAR" />
+    <result column="majorname" property="majorname" jdbcType="VARCHAR" />
+    <result column="majorstate" property="majorstate" jdbcType="BIT" />
+    <result column="parentid" property="parentid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, majorcode, majorname, majorstate, parentid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lm.model.TDmMajorExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_dm_major
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_dm_major
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_dm_major
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lm.model.TDmMajorExample" >
+    delete from t_dm_major
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lm.model.TDmMajor" >
+    insert into t_dm_major (id, majorcode, majorname, 
+      majorstate, parentid)
+    values (#{id,jdbcType=INTEGER}, #{majorcode,jdbcType=VARCHAR}, #{majorname,jdbcType=VARCHAR}, 
+      #{majorstate,jdbcType=BIT}, #{parentid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lm.model.TDmMajor" >
+    insert into t_dm_major
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="majorcode != null" >
+        majorcode,
+      </if>
+      <if test="majorname != null" >
+        majorname,
+      </if>
+      <if test="majorstate != null" >
+        majorstate,
+      </if>
+      <if test="parentid != null" >
+        parentid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="majorcode != null" >
+        #{majorcode,jdbcType=VARCHAR},
+      </if>
+      <if test="majorname != null" >
+        #{majorname,jdbcType=VARCHAR},
+      </if>
+      <if test="majorstate != null" >
+        #{majorstate,jdbcType=BIT},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lm.model.TDmMajorExample" resultType="java.lang.Integer" >
+    select count(*) from t_dm_major
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_dm_major
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.majorcode != null" >
+        majorcode = #{record.majorcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.majorname != null" >
+        majorname = #{record.majorname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.majorstate != null" >
+        majorstate = #{record.majorstate,jdbcType=BIT},
+      </if>
+      <if test="record.parentid != null" >
+        parentid = #{record.parentid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_dm_major
+    set id = #{record.id,jdbcType=INTEGER},
+      majorcode = #{record.majorcode,jdbcType=VARCHAR},
+      majorname = #{record.majorname,jdbcType=VARCHAR},
+      majorstate = #{record.majorstate,jdbcType=BIT},
+      parentid = #{record.parentid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lm.model.TDmMajor" >
+    update t_dm_major
+    <set >
+      <if test="majorcode != null" >
+        majorcode = #{majorcode,jdbcType=VARCHAR},
+      </if>
+      <if test="majorname != null" >
+        majorname = #{majorname,jdbcType=VARCHAR},
+      </if>
+      <if test="majorstate != null" >
+        majorstate = #{majorstate,jdbcType=BIT},
+      </if>
+      <if test="parentid != null" >
+        parentid = #{parentid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lm.model.TDmMajor" >
+    update t_dm_major
+    set majorcode = #{majorcode,jdbcType=VARCHAR},
+      majorname = #{majorname,jdbcType=VARCHAR},
+      majorstate = #{majorstate,jdbcType=BIT},
+      parentid = #{parentid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--自定义-->
+  <select id="selectByPid" resultMap="SimpleResultMap" parameterType="java.lang.String">
+    select id,majorname,majorcode
+    from t_dm_major
+    <where>
+      1=1
+      <if test="_parameter != null">
+        and parentid = #{_parameter,jdbcType=VARCHAR}
+      </if>
+      <if test="_parameter == null">
+        and parentid IS NULL
+      </if>
+    </where>
+  </select>
+
+  <resultMap id="SimpleResultMap" type="com.lm.vo.SimpleMajor">
+    <id column="id" property="value" jdbcType="INTEGER" />
+    <result column="majorname" property="label" jdbcType="VARCHAR" />
+    <result column="majorcode" property="code" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>
